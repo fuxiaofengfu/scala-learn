@@ -1,19 +1,22 @@
 object IfElse {
   def main(args: Array[String]): Unit = {
-    ifelse(null)
+    ifelse("a")
   }
 
   def ifelse(p: Any) = {
-    println(p.asInstanceOf[Int])
-    if (p.isInstanceOf[String]) {
-      println(matchCase(p.asInstanceOf[String]))
+    //println(p.asInstanceOf[Int])
+    val maybeString: Option[String] = matches(p.asInstanceOf[String])
+    println(maybeString.get)
+
+    if (p.isInstanceOf[String]) {   //类型判断
+      println(matchCase(p.asInstanceOf[String])) //强转为String
     } else {
-      println(partialMatchDouble(p.asInstanceOf[Int]))
+      println(partialMatchDouble(p.asInstanceOf[Int])) //强转为Int
     }
   }
 
   /**
-    * 翩函数
+    * 偏函数
     *
     * @return
     */
@@ -23,12 +26,18 @@ object IfElse {
     case _ => 0
   }
 
-  def matches(x: String): String = x match {
-    case "a" => val r = x + "_matched"; println(s"ok->$r"); r
-    case "b" => x + "_matched"
-    case "c" => x + "_matched"
-    case "d" => x + "_matched"
-    case _ => return "nothing matches"
+  /**
+    * Option表示该结果返回值可能为空(None)
+    * 如果不是空,必须将结果用Some通过验证,结果使用get获取返回值
+    * @param x
+    * @return
+    */
+  def matches(x: String): Option[String] = x match {
+    case "a" => val r = x + "_matched"; println(s"ok->$r"); Some(r)
+    case "b" => Some(x + "_matched")
+    case "c" => Some(x + "_matched")
+    case "d" => Some(x + "_matched")
+    case _ => return None
   }
 
   /**
