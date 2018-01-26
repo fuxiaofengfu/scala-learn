@@ -20,7 +20,7 @@ object MyFunctional {
     val intToInt: Int => (String, String) => Int = (x: Int) => (a: String, b: String) => a.toInt + x + b.toInt
     val stringToInt = intToInt(1)("2", "222")
     println(stringToInt)
-    //柯里化
+    //柯里化函数   等号左边是函数名和函数类型(即定义),等号右边是函数实现
     val func: (Int => Int) => (Int => (Int => (Int => Int))) =
     { (f:Int=> Int) => (g:Int) => (h:Int) => (i:Int) => f(2) + g + h + i }
     println(func((x: Int) => x * 6)(5)(1)(2))
