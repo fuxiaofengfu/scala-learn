@@ -38,13 +38,16 @@ object MyFunctional {
     val str: String = intToStringToString(2)("5")
     println(str)
 
+    def func(x:Int,y:String) = y * x
+    val function1: (Int, String) => String = func _  //将多参数函数转化为多元函数
+
     //柯里化(Currying)指的是将原来接受两个参数的函数变成新的接受一个参数的函数的过程。
     //新的函数返回一个以原有第二个参数为参数的函数。
 
     //原函数:function
     //柯里化:currying(对function柯里化)
     //柯里化主要用于减少函数参数个数,而且后面的参数可以通过前面的参数推导
-
+    //这里就是将函数function的两个参数转化为一个参数调用多次调用
     def function(x: Int)(y: String) = y * x
     val curr: Int => String => String = function _  //柯里化
     println(curr(1)("s"))
