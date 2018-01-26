@@ -1,7 +1,7 @@
 object MyFunctional {
 
   def main(args: Array[String]): Unit = {
-    testCurrying
+    testFunc
   }
 
   def testFunc(): Unit = {
@@ -21,8 +21,9 @@ object MyFunctional {
     val stringToInt = intToInt(1)("2", "222")
     println(stringToInt)
     //柯里化
-    val func: (Int => Int) => (Int => (Int => (Int => Int))) = { (a: Int => Int) => a => a => a => a * 10 }
-    //println(func((x: Int) => x * 6)(5))
+    val func: (Int => Int) => (Int => (Int => (Int => Int))) =
+    { (f:Int=> Int) => (g:Int) => (h:Int) => (i:Int) => f(2) + g + h + i }
+    println(func((x: Int) => x * 6)(5)(1)(2))
   }
 
   def testCurrying: Unit = {
