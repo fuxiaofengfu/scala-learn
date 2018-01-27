@@ -1,6 +1,15 @@
-class List {
+object MyList {
 
   def main(args: Array[String]): Unit = {
+    test
+  }
+
+  def test:Unit = {
+    println("22" ++: ("b"))
+  }
+
+  def wordCount():Unit = {
+
     val list = List(("a", "b", "c", "d"), ("c", "e", "f", "e"), ("a", "b", "g", "d"), ("d", "g", "f", "d"))
     val tup = ("a", "b", "c", "d")
     val arr = for (i <- tup.toString().split(",")) yield i
