@@ -1,3 +1,5 @@
+import scala.collection.mutable
+
 object IfElse {
   def main(args: Array[String]): Unit = {
     ifelse("a")
@@ -65,6 +67,9 @@ object ForEach {
 
 object Calculate {
   def main(args: Array[String]): Unit = {
+
+    //println(1 + 1)
+
 
   }
 }
