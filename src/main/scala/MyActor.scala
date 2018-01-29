@@ -16,7 +16,8 @@ class MyActor extends Actor {
 
   override def receive: Receive = {
     case CaseActor(x) => println(s"CaseActor => $x"); myActor2 ! CaseActor1(x)
-    case CaseActor1(x) => println(s"CaseActor1 => $x");
+    case CaseActor1(x) => println(s"CaseActor1 => $x")
+    case "hello" => println("hello actor....")
     case _ => println("null matches")
   }
 }
@@ -46,7 +47,7 @@ object TestActor {
     val actor: ActorRef = Sys.actorSystem.actorOf(Props[MyActor], "myActor")
     //val actor1Path: ActorPath = actorSystem.child("myActor1")
     //val actor1: ActorSelection = actorSystem.actorSelection(actor1Path)
-    actor ! CaseActor("111")
+    actor ! CaseActor("111")  // 给myActor发送信息
 
     // 某个actor发送信息只能自己的actor能收到信息
   }
