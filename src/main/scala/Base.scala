@@ -67,10 +67,7 @@ object ForEach {
 
 object Calculate {
   def main(args: Array[String]): Unit = {
-
-    //println(1 + 1)
-
-
+    println( Math.round(1/3.0))
   }
 }
 
