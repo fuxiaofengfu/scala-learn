@@ -1,10 +1,10 @@
-import akka.actor.{Actor, ActorPath, ActorRef, ActorSelection, ActorSystem, Props}
+import akka.actor.{Actor, ActorLogging, ActorPath, ActorRef, ActorSelection, ActorSystem, Props}
 
 object Sys {
   val actorSystem: ActorSystem = ActorSystem("myhelloAkka")
 }
 
-class MyActor extends Actor {
+class MyActor extends Actor with ActorLogging{
 
   private var myActor2: ActorRef = _
 
@@ -15,14 +15,14 @@ class MyActor extends Actor {
   }
 
   override def receive: Receive = {
-    case CaseActor(x) => println(s"CaseActor => $x"); myActor2 ! CaseActor1(x)
-    case CaseActor1(x) => println(s"CaseActor1 => $x")
-    case "hello" => println("hello actor....")
-    case _ => println("null matches")
+    case CaseActor(x) => log.info(s"CaseActor => $x"); myActor2 ! CaseActor1(x)
+    case CaseActor1(x) => log.info(s"CaseActor1 => $x")
+    case "hello" => log.info("hello actor....")
+    case _ => log.info("null matches")
   }
 }
 
-class MyActor2 extends Actor {
+class MyActor2 extends Actor with ActorLogging {
 
   //private var myActor: ActorRef = _
   var myActor: ActorSelection = _
@@ -34,9 +34,9 @@ class MyActor2 extends Actor {
   }
 
   override def receive: Receive = {
-    case CaseActor(x) => println(s"CaseActor => $x");
-    case CaseActor1(x) => println(s"CaseActor1 => $x"); myActor ! CaseActor(x)
-    case _ => println("null matches")
+    case CaseActor(x) => log.info(s"CaseActor => $x");
+    case CaseActor1(x) => log.info(s"CaseActor1 => $x"); myActor ! CaseActor(x)
+    case _ => log.info("null matches")
   }
 }
 
