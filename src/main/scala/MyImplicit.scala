@@ -4,7 +4,10 @@ object MyImplicit {
   //给字符串对象添加方法implicitChange
   def display(x: String) = (y:String) => x + y
 
-  // 这里给string对象添加了对象Operate的所有方法,因为返回的就是一个Operate对象
+  def getInt(x:Int) = {
+    x.getClass
+  }
+  //这里给string对象添加了对象Operate的所有方法,因为返回的就是一个Operate对象
   implicit def implicitChange1(x: String) = new Operate(x)
 
   implicit def typeConvert(x:Int) = x.toString
@@ -37,6 +40,10 @@ object MyImplicitTest {
     val pi = display(11)("fsadf")  //这里给Int类型隐式转换为String,所以可以直接调用display
     val bi = display(true)("aaaaa")  //这里给Boolean类型隐式转换为String,所以可以直接调用display
     println(c,pi,bi)
+
+    val d = 222
+    println(d.getClass,getInt(d))
+
     import com.fxf.MyImplicit.implicitChange1
     "aaa" read "ccc"  // "aaa".read("ccc")
     "aaa" read2 "ccc"
