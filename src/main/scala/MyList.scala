@@ -5,7 +5,7 @@ object MyList {
   def main(args: Array[String]): Unit = {
     val clazz: Class[_ <: Unit] = test.getClass
     val unit = fn(2)
-    op
+    wordCount
   }
 
   val fn: Int => Unit = (x: Int) => println(x * 10)
@@ -42,12 +42,13 @@ object MyList {
     val tup = ("a", "b", "c", "d")
     val arr = for (i <- tup.toString().split(",")) yield i
     val a = list.flatMap(_.productIterator)
+    println(s"flatMap => $a")
     val map = a.map(_ -> 1)
     println(map)
     val group = map.groupBy(_ _1)
     println(group)
     val mapvs = group.mapValues(_.size)
-    println(mapvs)
+    println(s"mapValues => $mapvs")
     val resul = mapvs.toList.sortBy(_ _2)
     println(resul)
     var lll = List(1, 2, 3, 4, 5, 6)

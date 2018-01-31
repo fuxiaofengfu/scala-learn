@@ -49,7 +49,6 @@ class MyActor2 extends Actor with ActorLogging {
 object TestActor {
 
   def main(args: Array[String]): Unit = {
-
     val actor: ActorRef = Sys.actorSystem.actorOf(Props[MyActor], "myActor")
     val myActor2: ActorRef = Sys.actorSystem.actorOf(Props[MyActor2], "myActor2") //创建actor2
 
