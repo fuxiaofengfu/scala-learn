@@ -13,6 +13,10 @@ object MyImplicit {
   //display接收的是String参数,所以如果要同时让他接收int,boolean类型的参数，则必须把int,boolean类型的隐式转化为String对象
   implicit def typeConvert(x:Int) = {println("int to string");x.toString}
   implicit def typeConvert(x:Boolean) = {println("boolean to string");if(x) "true" else "false"}
+
+  //转化为int,则在本作用域内,所有的接收int类型的方法都可以同时接收转为int的隐式方法参数的类型
+  implicit def typeConvert(x:String) = {println("string to int");x.toInt}
+  implicit def typeConvert1(x:Boolean) = {println("boolean to int");if(x) 0 else 1}
 }
 
 class Operate(val x: String) {
@@ -36,14 +40,14 @@ object MyImplicitTest {
 
   def test1(): Unit ={
     import com.fxf.MyImplicit._
-    val c  = display("123456")("11")   //当有两个相同参数和返回类型的隐式转换类型时,需要指定使用具体的隐式
+    val c  = display("1bbbb")("ccc")   //当有两个相同参数和返回类型的隐式转换类型时,需要指定使用具体的隐式
     // val c  = "123456"("11")  这里报错
     val pi = display(11)("fsadf")  //这里给Int类型隐式转换为String,所以可以直接调用display
     val bi = display(true)("aaaaa")  //这里给Boolean类型隐式转换为String,所以可以直接调用display
     println(c,pi,bi)
 
     val d = 222
-    println(d.getClass,getInt(d))
+    println(d.getClass,getInt(d),getInt("55555"),getInt(true))
 
     import com.fxf.MyImplicit.implicitChange1
     "aaa" read "ccc"  // "aaa".read("ccc")
