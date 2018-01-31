@@ -1,7 +1,7 @@
 package com.fxf
 
 object MyImplicit {
-  //给字符串对象添加方法implicitChange
+  //给字符串对象添加方法
   def display(x: String) = (y:String) => x + y
 
   def getInt(x:Int) = {
@@ -10,8 +10,9 @@ object MyImplicit {
   //这里给string对象添加了对象Operate的所有方法,因为返回的就是一个Operate对象
   implicit def implicitChange1(x: String) = new Operate(x)
 
-  implicit def typeConvert(x:Int) = x.toString
-  implicit def typeConvert(x:Boolean) = if(x) "true" else "false"
+  //display接收的是String参数,所以如果要同时让他接收int,boolean类型的参数，则必须把int,boolean类型的隐式转化为String对象
+  implicit def typeConvert(x:Int) = {println("int to string");x.toString}
+  implicit def typeConvert(x:Boolean) = {println("boolean to string");if(x) "true" else "false"}
 }
 
 class Operate(val x: String) {
