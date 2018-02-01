@@ -1,5 +1,10 @@
+package com.fxf.scala
+
 import scala.collection.mutable
 
+class MyList {
+
+}
 object MyList {
 
   def main(args: Array[String]): Unit = {
@@ -57,4 +62,3 @@ object MyList {
     println(bbb)
   }
 }
-

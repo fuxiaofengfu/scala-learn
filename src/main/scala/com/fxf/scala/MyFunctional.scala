@@ -1,3 +1,8 @@
+package com.fxf.scala
+
+class MyFunctional {
+
+}
 object MyFunctional {
 
   def main(args: Array[String]): Unit = {
@@ -59,3 +64,4 @@ object MyFunctional {
     println(currying(2)("b"))
   }
 }
+
