@@ -29,6 +29,7 @@ class WordCount {
     //因为后面调用了两次collect，即执行两次action操作,
     // 这里将数据缓存可供第二次执行rdd action的复用第一次执行collect 缓存的结果
     //缓存要起作用必须在有rdd action操作之前调用缓存
+    //rdd action操作才触发了dag的执行,其它rdd的操作都是懒加载的
     values.cache()
 
     println("未执行collect前..............")
