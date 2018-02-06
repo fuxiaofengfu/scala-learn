@@ -79,7 +79,7 @@ class WordCount1 {
     val value1: RDD[String] = rdd.map(_ _2)
     val value7: RDD[String] = value1.flatMap(x => {
       if (x.contains("\n")) {
-        val str: String = x.replace("\n", "") //去掉 "\n"换行符
+        val str: String = x.replace("\n", " ") //去掉 "\n"换行符
         str.split(" ")
       } else {
         x.split(" ")
@@ -92,7 +92,7 @@ class WordCount1 {
     val outPath = "file/out"
     MyWCImplicit.deletePath(outPath)
     value10.saveAsTextFile(outPath)
-    value6.saveAsTextFile(outPath) //一个数据集只能单独输出到不同目录
+    //value6.saveAsTextFile(outPath) //一个数据集只能单独输出到不同目录
   }
 }
 
