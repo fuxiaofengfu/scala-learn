@@ -4,6 +4,7 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.producer.KafkaProducer;
+import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.TopicPartition;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;
@@ -22,25 +23,30 @@ public class KafkaTest {
 		properties.put("key.serializer", StringSerializer.class.getName());
 		properties.put("value.serializer", StringSerializer.class.getName());
 		KafkaProducer kafkaProducer = new KafkaProducer(properties);
-//		new Thread(new Runnable() {
-//			@Override
-//			public void run() {
-//				int index = 1;
-//				while(true){
-//					ProducerRecord producerRecord = new ProducerRecord("fxf_Test_topic","pactera1","fffff"+index);
-//					kafkaProducer.send(producerRecord);
-//					index ++;
-//				}
-//			}
-//		}).start();
+		new Thread() {
+			@Override
+			public void run() {
+				int index = 1;
+				while (true) {
+					try {
+						Thread.sleep(TimeUnit.SECONDS.toSeconds(1000));
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					ProducerRecord producerRecord = new ProducerRecord("fxf_Test_topic", "pactera1", "fffff" + index);
+					kafkaProducer.send(producerRecord);
+					index++;
+				}
+			}
+		}.start();
 
 		properties = new Properties();
 		properties.put("bootstrap.servers", "host8:9092,host9:9092,host10:9092");
 		properties.put("key.deserializer", StringDeserializer.class.getName());
 		properties.put("value.deserializer", StringDeserializer.class.getName());
 		properties.put("group.id", "fxf_group_consumer");
-		properties.put("enable.auto.commit", "false");
-		//properties.put("enable.auto.commit", "true");
+		//properties.put("enable.auto.commit", "false");
+		properties.put("enable.auto.commit", "true");
 		KafkaConsumer kafkaConsumer = new KafkaConsumer(properties);
 		//kafkaConsumer.subscribe(Arrays.asList("fxf_Test_topic"));
 
@@ -49,11 +55,10 @@ public class KafkaTest {
 		kafkaConsumer.seek(partition, 3756440);
 		while (true) {
 			try {
-				Thread.sleep(TimeUnit.SECONDS.toSeconds(1));
+				Thread.sleep(TimeUnit.SECONDS.toSeconds(1000));
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			System.out.println(111111);
 			ConsumerRecords poll = kafkaConsumer.poll(1000);
 			Iterator<ConsumerRecord<String, String>> iterator = poll.iterator();
 			while (iterator.hasNext()) {
