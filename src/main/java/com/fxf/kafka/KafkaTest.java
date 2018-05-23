@@ -1,5 +1,6 @@
 package com.fxf.kafka;
 
+import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
@@ -41,12 +42,15 @@ public class KafkaTest {
 		}.start();
 
 		properties = new Properties();
-		properties.put("bootstrap.servers", "host8:9092,host9:9092,host10:9092");
-		properties.put("key.deserializer", StringDeserializer.class.getName());
-		properties.put("value.deserializer", StringDeserializer.class.getName());
-		properties.put("group.id", "fxf_group_consumer");
+		properties.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "host8:9092,host9:9092,host10:9092");
+		properties.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
+		properties.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
+		properties.put(ConsumerConfig.GROUP_ID_CONFIG, "fxf_group_consumer");
 		//properties.put("enable.auto.commit", "false");
-		properties.put("enable.auto.commit", "true");
+		properties.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "true");
+		properties.put(ConsumerConfig.FETCH_MAX_BYTES_CONFIG, 1);
+		properties.put(ConsumerConfig.MAX_POLL_INTERVAL_MS_CONFIG, 1);
+		//properties.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG,1);
 		KafkaConsumer kafkaConsumer = new KafkaConsumer(properties);
 		//kafkaConsumer.subscribe(Arrays.asList("fxf_Test_topic"));
 
@@ -59,6 +63,7 @@ public class KafkaTest {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
+			System.out.println("====================");
 			ConsumerRecords poll = kafkaConsumer.poll(1000);
 			Iterator<ConsumerRecord<String, String>> iterator = poll.iterator();
 			while (iterator.hasNext()) {
@@ -69,6 +74,7 @@ public class KafkaTest {
 				System.out.println(next.topic());
 				System.out.println(next.partition());
 			}
+			System.out.println("====================");
 		}
 	}
 
